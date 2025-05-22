@@ -1,0 +1,360 @@
+.userInfoCard {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.userInfoHeader {
+  padding: 16px 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.userInfoTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+}
+
+.userInfoContent {
+  padding: 24px;
+}
+
+.userInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.userInfoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.userInfoLabel {
+  font-size: 14px;
+  color: #718096;
+}
+
+.userInfoValue {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+/* Table Styles */
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background-color: #f7fafc;
+  color: #4a5568;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #2d3748;
+  font-size: 14px;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.approved {
+  background-color: #c6f6d5;
+  color: #2f855a;
+}
+
+.pending {
+  background-color: #feebc8;
+  color: #c05621;
+}
+
+.rejected {
+  background-color: #fed7d7;
+  color: #c53030;
+}
+
+.courseType {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.core {
+  background-color: #bee3f8;
+  color: #2b6cb0;
+}
+
+.elective {
+  background-color: #e9d8fd;
+  color: #6b46c1;
+}
+
+.required {
+  background-color: #c6f6d5;
+  color: #2f855a;
+}
+
+.general {
+  background-color: #feebc8;
+  color: #c05621;
+}
+
+.tableFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  margin-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.tableSummary {
+  display: flex;
+  gap: 16px;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.viewAllButton {
+  padding: 8px 16px;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.registerButton {
+  padding: 6px 12px;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.tablePagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  margin-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.paginationButton {
+  padding: 8px 16px;
+  background-color: #edf2f7;
+  color: #4a5568;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.paginationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.paginationPages {
+  display: flex;
+  gap: 8px;
+}
+
+.pageButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #edf2f7;
+  color: #4a5568;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.activePage {
+  background-color: #4299e1;
+  color: white;
+}
+
+/* Stats Card */
+.statsCard {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+}
+
+.statsTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 24px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statValue {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.statLabel {
+  font-size: 14px;
+  color: #718096;
+}
+
+.progressContainer {
+  margin-top: 8px;
+}
+
+.progressLabel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.progressBar {
+  height: 8px;
+  background-color: #edf2f7;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: #4299e1;
+  border-radius: 4px;
+}
+
+/* Deadlines Card */
+.deadlinesCard {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+}
+
+.deadlinesTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 24px;
+}
+
+.deadlinesList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.deadlineItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.deadlineItem:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.deadlineInfo {
+  flex: 1;
+}
+
+.deadlineTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2d3748;
+  margin-bottom: 4px;
+}
+
+.deadlineDate {
+  font-size: 14px;
+  color: #718096;
+}
+
+.deadlineCountdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ebf8ff;
+  color: #3182ce;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.daysLeft {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.daysLabel {
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .userInfoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
