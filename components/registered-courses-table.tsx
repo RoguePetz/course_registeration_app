@@ -25,6 +25,8 @@ export default function RegisteredCoursesTable() {
   const [courses, setCourses] = useState<Course[]>([])
   const [totalUnits, setTotalUnits] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [currentYear, setCurrentYear] = useState("")
+  const [currentSemester, setCurrentSemester] = useState("")
 
   useEffect(() => {
     // Access localStorage only on the client side
@@ -63,6 +65,10 @@ export default function RegisteredCoursesTable() {
           if (mostRecentCourses.length > 0) break
         }
 
+        // Set the current year and semester for display
+        setCurrentYear(mostRecentYear)
+        setCurrentSemester(mostRecentSemester)
+
         // Add status and registeredDate if not present
         const processedCourses = mostRecentCourses.map((course) => ({
           ...course,
@@ -90,7 +96,11 @@ export default function RegisteredCoursesTable() {
 
   return (
     <div className={styles.tableContainer}>
-      <h3>Most Recently Registered Courses</h3>
+      <h3>
+        {currentYear && currentSemester
+          ? `${currentSemester} Semester ${currentYear} Registered Courses`
+          : "Most Recently Registered Courses"}
+      </h3>
       {courses.length > 0 ? (
         <>
           <table className={styles.table}>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 export default function CoursePage() {
   // Hook to detect mobile screens
-  const [isMobile, setIsMobile] = useState(false)
+  const [, setIsMobile] = useState(false)
 
   // Set up mobile detection
   useEffect(() => {
@@ -52,9 +52,24 @@ export default function CoursePage() {
         "5": { First: [], Second: [] },
       }
 
+  type Course = {
+    id: string
+    title: string
+    units: number
+    type: string
+    department: string
+    level: string
+    year: string
+    semester: string
+    lecturer: string
+    isCarryOver?: boolean
+    originalYear?: string
+    originalSemester?: string
+  }
+
   // State for registered courses - organized by year and semester
   const [registeredCourses, setRegisteredCourses] =
-    useState<Record<string, Record<string, any[]>>>(initialRegisteredCourses)
+    useState<Record<string, Record<string, Course[]>>>(initialRegisteredCourses)
 
   // State variable for maximum units
   const maxUnits = 24 // Fixed credit unit limit
@@ -658,7 +673,7 @@ export default function CoursePage() {
   const totalCarryOverPages = Math.ceil(carryOverCourses.length / coursesPerPage)
 
   // Handle course registration
-  const handleRegisterCourse = (course: any, isCarryOver = false) => {
+  const handleRegisterCourse = (course: Course, isCarryOver = false) => {
     // Create a copy of the course with carry-over flag if needed
     const courseToRegister = {
       ...course,
