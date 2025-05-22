@@ -6,7 +6,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import { doc, getDoc, updateDoc } from "firebase/firestore"
 import { useRouter } from "next/navigation"
 
-interface UserData {
+interface UserData extends Record<string, any> {
   name?: string
   email?: string
   phone_number?: string
@@ -83,11 +83,12 @@ export default function ProfilePage() {
 
   const saveChanges = async () => {
     if (!formData || !auth.currentUser) return
-
+  
     setIsLoading(true)
     try {
       const userDocRef = doc(db, "users", auth.currentUser.uid)
-      await updateDoc(userDocRef, formData)
+      // Add type assertion here
+      await updateDoc(userDocRef, formData as Record<string, any>)
       setUserData(formData)
       setIsEditing(false)
       alert("Profile updated successfully")
