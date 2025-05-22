@@ -2,27 +2,6 @@
 
 import { useState, useEffect } from "react"
 export default function CoursePage() {
-  // Hook to detect mobile screens
-  const [, setIsMobile] = useState(false)
-
-  // Set up mobile detection
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-
-    // Initial check
-    checkIfMobile()
-
-    // Add event listener for window resize
-    window.addEventListener("resize", checkIfMobile)
-
-    // Clean up
-    return () => {
-      window.removeEventListener("resize", checkIfMobile)
-    }
-  }, [])
-
   // State for active tabs
   const [activeMainTab, setActiveMainTab] = useState("available")
   const [activeYear, setActiveYear] = useState("1")
@@ -52,24 +31,9 @@ export default function CoursePage() {
         "5": { First: [], Second: [] },
       }
 
-  type Course = {
-    id: string
-    title: string
-    units: number
-    type: string
-    department: string
-    level: string
-    year: string
-    semester: string
-    lecturer: string
-    isCarryOver?: boolean
-    originalYear?: string
-    originalSemester?: string
-  }
-
   // State for registered courses - organized by year and semester
   const [registeredCourses, setRegisteredCourses] =
-    useState<Record<string, Record<string, Course[]>>>(initialRegisteredCourses)
+    useState<Record<string, Record<string, any[]>>>(initialRegisteredCourses)
 
   // State variable for maximum units
   const maxUnits = 24 // Fixed credit unit limit
@@ -673,7 +637,7 @@ export default function CoursePage() {
   const totalCarryOverPages = Math.ceil(carryOverCourses.length / coursesPerPage)
 
   // Handle course registration
-  const handleRegisterCourse = (course: Course, isCarryOver = false) => {
+  const handleRegisterCourse = (course: any, isCarryOver = false) => {
     // Create a copy of the course with carry-over flag if needed
     const courseToRegister = {
       ...course,
@@ -759,16 +723,16 @@ export default function CoursePage() {
       style={{
         maxWidth: "1200px",
         margin: "0 auto",
-        padding: "16px 8px",
+        padding: "32px 16px",
         fontFamily: "system-ui, -apple-system, sans-serif",
       }}
     >
       <h1
         style={{
-          fontSize: "clamp(20px, 5vw, 28px)",
+          fontSize: "28px",
           fontWeight: "bold",
           textAlign: "center",
-          marginBottom: "24px",
+          marginBottom: "32px",
           color: "#111827",
         }}
       >
@@ -781,21 +745,21 @@ export default function CoursePage() {
           display: "flex",
           borderBottom: "1px solid #E5E7EB",
           marginBottom: "24px",
-          overflowX: "auto",
         }}
       >
         <button
           onClick={() => setActiveMainTab("available")}
           style={{
-            padding: "12px 16px",
+            padding: "12px 24px",
             fontWeight: activeMainTab === "available" ? "bold" : "normal",
             borderBottom: activeMainTab === "available" ? "2px solid #2563EB" : "none",
+            // Fixed border properties:
+            borderWidth: 0,
+            borderStyle: "none",
             backgroundColor: "transparent",
-            border: "none",
             cursor: "pointer",
             color: activeMainTab === "available" ? "#2563EB" : "#6B7280",
             transition: "all 0.2s",
-            whiteSpace: "nowrap",
           }}
         >
           Available Courses
@@ -803,15 +767,16 @@ export default function CoursePage() {
         <button
           onClick={() => setActiveMainTab("registered")}
           style={{
-            padding: "12px 16px",
-            fontWeight: activeMainTab === "registered" ? "bold" : "normal",
-            borderBottom: activeMainTab === "registered" ? "2px solid #2563EB" : "none",
-            backgroundColor: "transparent",
-            border: "none",
-            cursor: "pointer",
-            color: activeMainTab === "registered" ? "#2563EB" : "#6B7280",
-            transition: "all 0.2s",
-            whiteSpace: "nowrap",
+            padding: "12px 24px",
+      fontWeight: activeMainTab === "registered" ? "bold" : "normal",
+      borderBottom: activeMainTab === "registered" ? "2px solid #2563EB" : "none",
+      // Fixed border properties:
+      borderWidth: 0,
+      borderStyle: "none",
+      backgroundColor: "transparent",
+      cursor: "pointer",
+      color: activeMainTab === "registered" ? "#2563EB" : "#6B7280",
+      transition: "all 0.2s",
           }}
         >
           Registered Courses
@@ -824,13 +789,13 @@ export default function CoursePage() {
           style={{
             backgroundColor: "white",
             borderRadius: "8px",
-            padding: "16px",
+            padding: "24px",
             boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
           }}
         >
           <h2
             style={{
-              fontSize: "18px",
+              fontSize: "20px",
               fontWeight: "600",
               marginBottom: "16px",
               color: "#111827",
@@ -843,7 +808,6 @@ export default function CoursePage() {
           <div
             style={{
               display: "flex",
-              flexWrap: "wrap",
               maxWidth: "600px",
               margin: "0 auto 16px auto",
               borderRadius: "8px",
@@ -859,12 +823,12 @@ export default function CoursePage() {
                   setCurrentPage(1)
                 }}
                 style={{
-                  flex: "1 1 auto",
-                  minWidth: "60px",
-                  padding: "8px",
+                  flex: 1,
+                  padding: "8px 16px",
                   backgroundColor: activeYear === year ? "#2563EB" : "white",
                   color: activeYear === year ? "white" : "#6B7280",
-                  border: "none",
+                  borderWidth: 0,
+                  borderStyle: "none",
                   cursor: "pointer",
                   fontWeight: activeYear === year ? "bold" : "normal",
                   transition: "all 0.2s",
@@ -893,10 +857,11 @@ export default function CoursePage() {
               }}
               style={{
                 flex: 1,
-                padding: "8px",
+                padding: "8px 16px",
                 backgroundColor: activeSemester === "First" ? "#2563EB" : "white",
                 color: activeSemester === "First" ? "white" : "#6B7280",
-                border: "none",
+                borderWidth: 0,
+                borderStyle: "none",
                 cursor: "pointer",
                 fontWeight: activeSemester === "First" ? "bold" : "normal",
                 transition: "all 0.2s",
@@ -911,10 +876,11 @@ export default function CoursePage() {
               }}
               style={{
                 flex: 1,
-                padding: "8px",
+                padding: "8px 16px",
                 backgroundColor: activeSemester === "Second" ? "#2563EB" : "white",
                 color: activeSemester === "Second" ? "white" : "#6B7280",
-                border: "none",
+                borderWidth: 0,
+                borderStyle: "none",
                 cursor: "pointer",
                 fontWeight: activeSemester === "Second" ? "bold" : "normal",
                 transition: "all 0.2s",
@@ -931,7 +897,8 @@ export default function CoursePage() {
               style={{
                 backgroundColor: showCarryOver ? "#4B5563" : "#2563EB",
                 color: "white",
-                border: "none",
+                borderWidth: 0,
+                borderStyle: "none",
                 padding: "8px 16px",
                 borderRadius: "4px",
                 fontSize: "14px",
@@ -944,107 +911,98 @@ export default function CoursePage() {
             </button>
           </div>
 
-          {/* Courses Table - Responsive */}
+          {/* Courses Table */}
           <div
             style={{
-              overflowX: "auto",
+              border: "1px solid #E5E7EB",
+              borderRadius: "6px",
+              overflow: "hidden",
               marginBottom: "16px",
             }}
           >
-            <div
+            <table
               style={{
-                border: "1px solid #E5E7EB",
-                borderRadius: "6px",
-                overflow: "hidden",
-                minWidth: "650px", // Minimum width to ensure readability
+                width: "100%",
+                borderCollapse: "collapse",
+                fontSize: "14px",
               }}
             >
-              <table
-                style={{
-                  width: "100%",
-                  borderCollapse: "collapse",
-                  fontSize: "14px",
-                }}
-              >
-                <thead>
-                  <tr style={{ backgroundColor: "#F9FAFB" }}>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                      Course Code
-                    </th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                      Course Title
-                    </th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Units</th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Type</th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                      Department
-                    </th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Level</th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                      Lecturer
-                    </th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                      Action
-                    </th>
+              <thead>
+                <tr style={{ backgroundColor: "#F9FAFB" }}>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                    Course Code
+                  </th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                    Course Title
+                  </th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Units</th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Type</th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                    Department
+                  </th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Level</th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                    Lecturer
+                  </th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentCourses.map((course) => (
+                  <tr key={course.id} style={{ borderBottom: "1px solid #E5E7EB" }}>
+                    <td style={{ padding: "12px 16px", fontWeight: "500" }}>{course.id}</td>
+                    <td style={{ padding: "12px 16px" }}>{course.title}</td>
+                    <td style={{ padding: "12px 16px" }}>{course.units}</td>
+                    <td style={{ padding: "12px 16px" }}>
+                      <span
+                        style={{
+                          display: "inline-block",
+                          padding: "4px 8px",
+                          borderRadius: "4px",
+                          fontSize: "12px",
+                          fontWeight: "500",
+                          ...getBadgeColor(course.type),
+                        }}
+                      >
+                        {course.type}
+                      </span>
+                    </td>
+                    <td style={{ padding: "12px 16px" }}>{course.department}</td>
+                    <td style={{ padding: "12px 16px" }}>{course.level}</td>
+                    <td style={{ padding: "12px 16px" }}>{course.lecturer}</td>
+                    <td style={{ padding: "12px 16px" }}>
+                      <button
+                        onClick={() => handleRegisterCourse(course)}
+                        style={{
+                          backgroundColor: "#2563EB",
+                          color: "white",
+                          borderWidth: 0,
+                          borderStyle: "none",
+                          padding: "6px 12px",
+                          borderRadius: "4px",
+                          fontSize: "12px",
+                          cursor: "pointer",
+                          fontWeight: "500",
+                          transition: "background-color 0.2s",
+                        }}
+                        onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#1D4ED8")}
+                        onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#2563EB")}
+                      >
+                        Register
+                      </button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {currentCourses.map((course) => (
-                    <tr key={course.id} style={{ borderBottom: "1px solid #E5E7EB" }}>
-                      <td style={{ padding: "12px 8px", fontWeight: "500" }}>{course.id}</td>
-                      <td style={{ padding: "12px 8px" }}>{course.title}</td>
-                      <td style={{ padding: "12px 8px" }}>{course.units}</td>
-                      <td style={{ padding: "12px 8px" }}>
-                        <span
-                          style={{
-                            display: "inline-block",
-                            padding: "4px 8px",
-                            borderRadius: "4px",
-                            fontSize: "12px",
-                            fontWeight: "500",
-                            ...getBadgeColor(course.type),
-                          }}
-                        >
-                          {course.type}
-                        </span>
-                      </td>
-                      <td style={{ padding: "12px 8px" }}>{course.department}</td>
-                      <td style={{ padding: "12px 8px" }}>{course.level}</td>
-                      <td style={{ padding: "12px 8px" }}>{course.lecturer}</td>
-                      <td style={{ padding: "12px 8px" }}>
-                        <button
-                          onClick={() => handleRegisterCourse(course)}
-                          style={{
-                            backgroundColor: "#2563EB",
-                            color: "white",
-                            border: "none",
-                            padding: "6px 12px",
-                            borderRadius: "4px",
-                            fontSize: "12px",
-                            cursor: "pointer",
-                            fontWeight: "500",
-                            transition: "background-color 0.2s",
-                            whiteSpace: "nowrap",
-                          }}
-                          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#1D4ED8")}
-                          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#2563EB")}
-                        >
-                          Register
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                ))}
 
-                  {currentCourses.length === 0 && (
-                    <tr>
-                      <td colSpan={8} style={{ padding: "16px", textAlign: "center" }}>
-                        No courses available for Year {activeYear}, {activeSemester} Semester
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+                {currentCourses.length === 0 && (
+                  <tr>
+                    <td colSpan={8} style={{ padding: "16px", textAlign: "center" }}>
+                      No courses available for Year {activeYear}, {activeSemester} Semester
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
 
           {/* Pagination */}
@@ -1054,10 +1012,9 @@ export default function CoursePage() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                gap: "4px",
+                gap: "8px",
                 marginTop: "16px",
                 marginBottom: showCarryOver ? "32px" : "0",
-                flexWrap: "wrap",
               }}
             >
               <button
@@ -1075,55 +1032,26 @@ export default function CoursePage() {
                 Previous
               </button>
 
-              {Array.from({ length: totalPages }).map((_, index) => {
-                // On mobile, show fewer page numbers
-                const isMobile = window.innerWidth < 640
-                const shouldShowPageNumber =
-                  !isMobile || index === 0 || index === totalPages - 1 || Math.abs(index + 1 - currentPage) <= 1
-
-                if (!shouldShowPageNumber) {
-                  // Show ellipsis for skipped pages, but only once
-                  if (index === 1 || index === totalPages - 2) {
-                    return (
-                      <span
-                        key={`ellipsis-${index}`}
-                        style={{
-                          width: "32px",
-                          height: "32px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        ...
-                      </span>
-                    )
-                  }
-                  return null
-                }
-
-                return (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentPage(index + 1)}
-                    style={{
-                      width: "32px",
-                      height: "32px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      border: "1px solid #E5E7EB",
-                      borderRadius: "4px",
-                      backgroundColor: currentPage === index + 1 ? "#2563EB" : "white",
-                      color: currentPage === index + 1 ? "white" : "#6B7280",
-                      cursor: "pointer",
-                      margin: "2px",
-                    }}
-                  >
-                    {index + 1}
-                  </button>
-                )
-              })}
+              {Array.from({ length: totalPages }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPage(index + 1)}
+                  style={{
+                    width: "32px",
+                    height: "32px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    border: "1px solid #E5E7EB",
+                    borderRadius: "4px",
+                    backgroundColor: currentPage === index + 1 ? "#2563EB" : "white",
+                    color: currentPage === index + 1 ? "white" : "#6B7280",
+                    cursor: "pointer",
+                  }}
+                >
+                  {index + 1}
+                </button>
+              ))}
 
               <button
                 onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
@@ -1165,10 +1093,10 @@ export default function CoursePage() {
                     backgroundColor: "#EF4444",
                   }}
                 ></span>
-                Carry-Over Courses
+                Carry-Over Courses Registration
               </h3>
 
-              <p style={{ marginBottom: "16px", color: "#6B7280", fontSize: "14px" }}>
+              <p style={{ marginBottom: "16px", color: "#6B7280" }}>
                 Select courses from previous years to register as carry-overs in your current year ({activeYear}).
               </p>
 
@@ -1176,7 +1104,6 @@ export default function CoursePage() {
               <div
                 style={{
                   display: "flex",
-                  flexWrap: "wrap",
                   maxWidth: "600px",
                   margin: "0 auto 16px auto",
                   borderRadius: "8px",
@@ -1194,12 +1121,12 @@ export default function CoursePage() {
                         setCarryOverPage(1)
                       }}
                       style={{
-                        flex: "1 1 auto",
-                        minWidth: "60px",
-                        padding: "8px",
+                        flex: 1,
+                        padding: "8px 16px",
                         backgroundColor: carryOverYear === year ? "#EF4444" : "white",
                         color: carryOverYear === year ? "white" : "#6B7280",
-                        border: "none",
+                        borderWidth: 0,
+                        borderStyle: "none",
                         cursor: "pointer",
                         fontWeight: carryOverYear === year ? "bold" : "normal",
                         transition: "all 0.2s",
@@ -1228,10 +1155,11 @@ export default function CoursePage() {
                   }}
                   style={{
                     flex: 1,
-                    padding: "8px",
+                    padding: "8px 16px",
                     backgroundColor: carryOverSemester === "First" ? "#EF4444" : "white",
                     color: carryOverSemester === "First" ? "white" : "#6B7280",
-                    border: "none",
+                    borderWidth: 0,
+                    borderStyle: "none",
                     cursor: "pointer",
                     fontWeight: carryOverSemester === "First" ? "bold" : "normal",
                     transition: "all 0.2s",
@@ -1246,10 +1174,11 @@ export default function CoursePage() {
                   }}
                   style={{
                     flex: 1,
-                    padding: "8px",
+                    padding: "8px 16px",
                     backgroundColor: carryOverSemester === "Second" ? "#EF4444" : "white",
                     color: carryOverSemester === "Second" ? "white" : "#6B7280",
-                    border: "none",
+                    borderWidth: 0,
+                    borderStyle: "none",
                     cursor: "pointer",
                     fontWeight: carryOverSemester === "Second" ? "bold" : "normal",
                     transition: "all 0.2s",
@@ -1259,114 +1188,107 @@ export default function CoursePage() {
                 </button>
               </div>
 
-              {/* Carry-Over Courses Table - Responsive */}
+              {/* Carry-Over Courses Table */}
               <div
                 style={{
-                  overflowX: "auto",
+                  border: "1px solid #E5E7EB",
+                  borderRadius: "6px",
+                  overflow: "hidden",
                   marginBottom: "16px",
+                  backgroundColor: "#FEFAFA",
                 }}
               >
-                <div
+                <table
                   style={{
-                    border: "1px solid #E5E7EB",
-                    borderRadius: "6px",
-                    overflow: "hidden",
-                    backgroundColor: "#FEFAFA",
-                    minWidth: "650px", // Minimum width to ensure readability
+                    width: "100%",
+                    borderCollapse: "collapse",
+                    fontSize: "14px",
                   }}
                 >
-                  <table
-                    style={{
-                      width: "100%",
-                      borderCollapse: "collapse",
-                      fontSize: "14px",
-                    }}
-                  >
-                    <thead>
-                      <tr style={{ backgroundColor: "#FEF2F2" }}>
-                        <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                          Course Code
-                        </th>
-                        <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                          Course Title
-                        </th>
-                        <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                          Units
-                        </th>
-                        <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                          Type
-                        </th>
-                        <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                          Department
-                        </th>
-                        <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                          Level
-                        </th>
-                        <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                          Lecturer
-                        </th>
-                        <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                          Action
-                        </th>
+                  <thead>
+                    <tr style={{ backgroundColor: "#FEF2F2" }}>
+                      <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                        Course Code
+                      </th>
+                      <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                        Course Title
+                      </th>
+                      <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                        Units
+                      </th>
+                      <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                        Type
+                      </th>
+                      <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                        Department
+                      </th>
+                      <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                        Level
+                      </th>
+                      <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                        Lecturer
+                      </th>
+                      <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentCarryOverCourses.map((course) => (
+                      <tr key={course.id} style={{ borderBottom: "1px solid #E5E7EB" }}>
+                        <td style={{ padding: "12px 16px", fontWeight: "500" }}>{course.id}</td>
+                        <td style={{ padding: "12px 16px" }}>{course.title}</td>
+                        <td style={{ padding: "12px 16px" }}>{course.units}</td>
+                        <td style={{ padding: "12px 16px" }}>
+                          <span
+                            style={{
+                              display: "inline-block",
+                              padding: "4px 8px",
+                              borderRadius: "4px",
+                              fontSize: "12px",
+                              fontWeight: "500",
+                              ...getBadgeColor(course.type),
+                            }}
+                          >
+                            {course.type}
+                          </span>
+                        </td>
+                        <td style={{ padding: "12px 16px" }}>{course.department}</td>
+                        <td style={{ padding: "12px 16px" }}>{course.level}</td>
+                        <td style={{ padding: "12px 16px" }}>{course.lecturer}</td>
+                        <td style={{ padding: "12px 16px" }}>
+                          <button
+                            onClick={() => handleRegisterCourse(course, true)}
+                            style={{
+                              backgroundColor: "#EF4444",
+                              color: "white",
+                              borderWidth: 0,
+                              borderStyle: "none",
+                              padding: "6px 12px",
+                              borderRadius: "4px",
+                              fontSize: "12px",
+                              cursor: "pointer",
+                              fontWeight: "500",
+                              transition: "background-color 0.2s",
+                            }}
+                            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#DC2626")}
+                            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#EF4444")}
+                          >
+                            Register as Carry-Over
+                          </button>
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {currentCarryOverCourses.map((course) => (
-                        <tr key={course.id} style={{ borderBottom: "1px solid #E5E7EB" }}>
-                          <td style={{ padding: "12px 8px", fontWeight: "500" }}>{course.id}</td>
-                          <td style={{ padding: "12px 8px" }}>{course.title}</td>
-                          <td style={{ padding: "12px 8px" }}>{course.units}</td>
-                          <td style={{ padding: "12px 8px" }}>
-                            <span
-                              style={{
-                                display: "inline-block",
-                                padding: "4px 8px",
-                                borderRadius: "4px",
-                                fontSize: "12px",
-                                fontWeight: "500",
-                                ...getBadgeColor(course.type),
-                              }}
-                            >
-                              {course.type}
-                            </span>
-                          </td>
-                          <td style={{ padding: "12px 8px" }}>{course.department}</td>
-                          <td style={{ padding: "12px 8px" }}>{course.level}</td>
-                          <td style={{ padding: "12px 8px" }}>{course.lecturer}</td>
-                          <td style={{ padding: "12px 8px" }}>
-                            <button
-                              onClick={() => handleRegisterCourse(course, true)}
-                              style={{
-                                backgroundColor: "#EF4444",
-                                color: "white",
-                                border: "none",
-                                padding: "6px 12px",
-                                borderRadius: "4px",
-                                fontSize: "12px",
-                                cursor: "pointer",
-                                fontWeight: "500",
-                                transition: "background-color 0.2s",
-                                whiteSpace: "nowrap",
-                              }}
-                              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#DC2626")}
-                              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#EF4444")}
-                            >
-                              Register as Carry-Over
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                    ))}
 
-                      {currentCarryOverCourses.length === 0 && (
-                        <tr>
-                          <td colSpan={8} style={{ padding: "16px", textAlign: "center" }}>
-                            No courses available for Year {carryOverYear}, {carryOverSemester} Semester
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
+                    {currentCarryOverCourses.length === 0 && (
+                      <tr>
+                        <td colSpan={8} style={{ padding: "16px", textAlign: "center" }}>
+                          No courses available for Year {carryOverYear}, {carryOverSemester} Semester
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
 
               {/* Carry-Over Pagination */}
@@ -1376,9 +1298,8 @@ export default function CoursePage() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    gap: "4px",
+                    gap: "8px",
                     marginTop: "16px",
-                    flexWrap: "wrap",
                   }}
                 >
                   <button
@@ -1396,58 +1317,26 @@ export default function CoursePage() {
                     Previous
                   </button>
 
-                  {Array.from({ length: totalCarryOverPages }).map((_, index) => {
-                    // On mobile, show fewer page numbers
-                    const isMobile = window.innerWidth < 640
-                    const shouldShowPageNumber =
-                      !isMobile ||
-                      index === 0 ||
-                      index === totalCarryOverPages - 1 ||
-                      Math.abs(index + 1 - carryOverPage) <= 1
-
-                    if (!shouldShowPageNumber) {
-                      // Show ellipsis for skipped pages, but only once
-                      if (index === 1 || index === totalCarryOverPages - 2) {
-                        return (
-                          <span
-                            key={`ellipsis-${index}`}
-                            style={{
-                              width: "32px",
-                              height: "32px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                          >
-                            ...
-                          </span>
-                        )
-                      }
-                      return null
-                    }
-
-                    return (
-                      <button
-                        key={index}
-                        onClick={() => setCarryOverPage(index + 1)}
-                        style={{
-                          width: "32px",
-                          height: "32px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          border: "1px solid #E5E7EB",
-                          borderRadius: "4px",
-                          backgroundColor: carryOverPage === index + 1 ? "#EF4444" : "white",
-                          color: carryOverPage === index + 1 ? "white" : "#6B7280",
-                          cursor: "pointer",
-                          margin: "2px",
-                        }}
-                      >
-                        {index + 1}
-                      </button>
-                    )
-                  })}
+                  {Array.from({ length: totalCarryOverPages }).map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCarryOverPage(index + 1)}
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        border: "1px solid #E5E7EB",
+                        borderRadius: "4px",
+                        backgroundColor: carryOverPage === index + 1 ? "#EF4444" : "white",
+                        color: carryOverPage === index + 1 ? "white" : "#6B7280",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
 
                   <button
                     onClick={() => setCarryOverPage((prev) => Math.min(prev + 1, totalCarryOverPages))}
@@ -1476,13 +1365,13 @@ export default function CoursePage() {
           style={{
             backgroundColor: "white",
             borderRadius: "8px",
-            padding: "16px",
+            padding: "24px",
             boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
           }}
         >
           <h2
             style={{
-              fontSize: "18px",
+              fontSize: "20px",
               fontWeight: "600",
               marginBottom: "16px",
               color: "#111827",
@@ -1495,7 +1384,6 @@ export default function CoursePage() {
           <div
             style={{
               display: "flex",
-              flexWrap: "wrap",
               maxWidth: "600px",
               margin: "0 auto 16px auto",
               borderRadius: "8px",
@@ -1508,12 +1396,12 @@ export default function CoursePage() {
                 key={year}
                 onClick={() => setActiveRegisteredYear(year)}
                 style={{
-                  flex: "1 1 auto",
-                  minWidth: "60px",
-                  padding: "8px",
+                  flex: 1,
+                  padding: "8px 16px",
                   backgroundColor: activeRegisteredYear === year ? "#2563EB" : "white",
                   color: activeRegisteredYear === year ? "white" : "#6B7280",
-                  border: "none",
+                  borderWidth: 0,
+                  borderStyle: "none",
                   cursor: "pointer",
                   fontWeight: activeRegisteredYear === year ? "bold" : "normal",
                   transition: "all 0.2s",
@@ -1539,10 +1427,11 @@ export default function CoursePage() {
               onClick={() => setActiveRegisteredSemester("First")}
               style={{
                 flex: 1,
-                padding: "8px",
+                padding: "8px 16px",
                 backgroundColor: activeRegisteredSemester === "First" ? "#2563EB" : "white",
                 color: activeRegisteredSemester === "First" ? "white" : "#6B7280",
-                border: "none",
+                borderWidth: 0,
+                borderStyle: "none",
                 cursor: "pointer",
                 fontWeight: activeRegisteredSemester === "First" ? "bold" : "normal",
                 transition: "all 0.2s",
@@ -1554,10 +1443,11 @@ export default function CoursePage() {
               onClick={() => setActiveRegisteredSemester("Second")}
               style={{
                 flex: 1,
-                padding: "8px",
+                padding: "8px 16px",
                 backgroundColor: activeRegisteredSemester === "Second" ? "#2563EB" : "white",
                 color: activeRegisteredSemester === "Second" ? "white" : "#6B7280",
-                border: "none",
+                borderWidth: 0,
+                borderStyle: "none",
                 cursor: "pointer",
                 fontWeight: activeRegisteredSemester === "Second" ? "bold" : "normal",
                 transition: "all 0.2s",
@@ -1590,7 +1480,7 @@ export default function CoursePage() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                gridTemplateColumns: "1fr 1fr 1fr",
                 gap: "16px",
               }}
             >
@@ -1614,9 +1504,7 @@ export default function CoursePage() {
                 >
                   {calculateTotalUnits(activeRegisteredYear, activeRegisteredSemester)}
                   {calculateTotalUnits(activeRegisteredYear, activeRegisteredSemester) > maxUnits && (
-                    <span style={{ fontSize: "14px", color: "#DC2626", marginLeft: "4px", display: "block" }}>
-                      (Exceeds limit)
-                    </span>
+                    <span style={{ fontSize: "14px", color: "#DC2626", marginLeft: "4px" }}>(Exceeds limit)</span>
                   )}
                 </p>
               </div>
@@ -1630,13 +1518,14 @@ export default function CoursePage() {
                 </p>
               </div>
             </div>
-            <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div style={{ marginTop: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
               <span style={{ fontSize: "14px", color: "#6B7280" }}>
                 Maximum Credit Units: <strong>{maxUnits}</strong>
               </span>
               <span
                 style={{
                   fontSize: "14px",
+                  marginLeft: "16px",
                   color:
                     calculateTotalUnits(activeRegisteredYear, activeRegisteredSemester) > maxUnits
                       ? "#DC2626"
@@ -1681,62 +1570,69 @@ export default function CoursePage() {
             </div>
           </div>
 
-          {/* Registered Courses Table - Responsive */}
+          {/* Registered Courses Table */}
           <div
             style={{
-              overflowX: "auto",
+              border: "1px solid #E5E7EB",
+              borderRadius: "6px",
+              overflow: "hidden",
             }}
           >
-            <div
+            <table
               style={{
-                border: "1px solid #E5E7EB",
-                borderRadius: "6px",
-                overflow: "hidden",
-                minWidth: "650px", // Minimum width to ensure readability
+                width: "100%",
+                borderCollapse: "collapse",
+                fontSize: "14px",
               }}
             >
-              <table
-                style={{
-                  width: "100%",
-                  borderCollapse: "collapse",
-                  fontSize: "14px",
-                }}
-              >
-                <thead>
-                  <tr style={{ backgroundColor: "#F9FAFB" }}>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                      Course Code
-                    </th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                      Course Title
-                    </th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Units</th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Type</th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                      Department
-                    </th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Level</th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                      Status
-                    </th>
-                    <th style={{ padding: "12px 8px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {registeredCourses[activeRegisteredYear][activeRegisteredSemester].map((course) => (
-                    <tr
-                      key={course.id}
-                      style={{
-                        borderBottom: "1px solid #E5E7EB",
-                        backgroundColor: course.isCarryOver ? "#FEF2F2" : "transparent",
-                      }}
-                    >
-                      <td style={{ padding: "12px 8px", fontWeight: "500" }}>{course.id}</td>
-                      <td style={{ padding: "12px 8px" }}>{course.title}</td>
-                      <td style={{ padding: "12px 8px" }}>{course.units}</td>
-                      <td style={{ padding: "12px 8px" }}>
+              <thead>
+                <tr style={{ backgroundColor: "#F9FAFB" }}>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                    Course Code
+                  </th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                    Course Title
+                  </th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Units</th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Type</th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>
+                    Department
+                  </th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Level</th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Status</th>
+                  <th style={{ padding: "12px 16px", textAlign: "left", borderBottom: "1px solid #E5E7EB" }}>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {registeredCourses[activeRegisteredYear][activeRegisteredSemester].map((course) => (
+                  <tr
+                    key={course.id}
+                    style={{
+                      borderBottom: "1px solid #E5E7EB",
+                      backgroundColor: course.isCarryOver ? "#FEF2F2" : "transparent",
+                    }}
+                  >
+                    <td style={{ padding: "12px 16px", fontWeight: "500" }}>{course.id}</td>
+                    <td style={{ padding: "12px 16px" }}>{course.title}</td>
+                    <td style={{ padding: "12px 16px" }}>{course.units}</td>
+                    <td style={{ padding: "12px 16px" }}>
+                      <span
+                        style={{
+                          display: "inline-block",
+                          padding: "4px 8px",
+                          borderRadius: "4px",
+                          fontSize: "12px",
+                          fontWeight: "500",
+                          ...getBadgeColor(course.type),
+                        }}
+                      >
+                        {course.type}
+                      </span>
+                    </td>
+                    <td style={{ padding: "12px 16px" }}>{course.department}</td>
+                    <td style={{ padding: "12px 16px" }}>{course.level}</td>
+                    <td style={{ padding: "12px 16px" }}>
+                      {course.isCarryOver ? (
                         <span
                           style={{
                             display: "inline-block",
@@ -1744,80 +1640,61 @@ export default function CoursePage() {
                             borderRadius: "4px",
                             fontSize: "12px",
                             fontWeight: "500",
-                            ...getBadgeColor(course.type),
+                            backgroundColor: "#FEE2E2",
+                            color: "#991B1B",
                           }}
                         >
-                          {course.type}
+                          Carry-Over (Year {course.originalYear})
                         </span>
-                      </td>
-                      <td style={{ padding: "12px 8px" }}>{course.department}</td>
-                      <td style={{ padding: "12px 8px" }}>{course.level}</td>
-                      <td style={{ padding: "12px 8px" }}>
-                        {course.isCarryOver ? (
-                          <span
-                            style={{
-                              display: "inline-block",
-                              padding: "4px 8px",
-                              borderRadius: "4px",
-                              fontSize: "12px",
-                              fontWeight: "500",
-                              backgroundColor: "#FEE2E2",
-                              color: "#991B1B",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            Carry-Over (Year {course.originalYear})
-                          </span>
-                        ) : (
-                          <span
-                            style={{
-                              display: "inline-block",
-                              padding: "4px 8px",
-                              borderRadius: "4px",
-                              fontSize: "12px",
-                              fontWeight: "500",
-                              backgroundColor: "#DCFCE7",
-                              color: "#166534",
-                            }}
-                          >
-                            Regular
-                          </span>
-                        )}
-                      </td>
-                      <td style={{ padding: "12px 8px" }}>
-                        <button
-                          onClick={() => handleUnregisterCourse(course.id)}
+                      ) : (
+                        <span
                           style={{
-                            backgroundColor: "#EF4444",
-                            color: "white",
-                            border: "none",
-                            padding: "6px 12px",
+                            display: "inline-block",
+                            padding: "4px 8px",
                             borderRadius: "4px",
                             fontSize: "12px",
-                            cursor: "pointer",
                             fontWeight: "500",
-                            transition: "background-color 0.2s",
-                            whiteSpace: "nowrap",
+                            backgroundColor: "#DCFCE7",
+                            color: "#166534",
                           }}
-                          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#DC2626")}
-                          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#EF4444")}
                         >
-                          Unregister
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                          Regular
+                        </span>
+                      )}
+                    </td>
+                    <td style={{ padding: "12px 16px" }}>
+                      <button
+                        onClick={() => handleUnregisterCourse(course.id)}
+                        style={{
+                          backgroundColor: "#EF4444",
+                          color: "white",
+                          borderWidth: 0,
+                          borderStyle: "none",
+                          padding: "6px 12px",
+                          borderRadius: "4px",
+                          fontSize: "12px",
+                          cursor: "pointer",
+                          fontWeight: "500",
+                          transition: "background-color 0.2s",
+                        }}
+                        onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#DC2626")}
+                        onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#EF4444")}
+                      >
+                        Unregister
+                      </button>
+                    </td>
+                  </tr>
+                ))}
 
-                  {registeredCourses[activeRegisteredYear][activeRegisteredSemester].length === 0 && (
-                    <tr>
-                      <td colSpan={8} style={{ padding: "16px", textAlign: "center" }}>
-                        No courses registered for Year {activeRegisteredYear}, {activeRegisteredSemester} Semester
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+                {registeredCourses[activeRegisteredYear][activeRegisteredSemester].length === 0 && (
+                  <tr>
+                    <td colSpan={8} style={{ padding: "16px", textAlign: "center" }}>
+                      No courses registered for Year {activeRegisteredYear}, {activeRegisteredSemester} Semester
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       )}
