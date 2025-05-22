@@ -52,7 +52,7 @@ const courseData: CourseData = {
   "4": { First: [], Second: [] },
   "5": { First: [], Second: [] },
 };
-
+console.log(courseData)
 // Calculate stats for the most recent semester only
 const calculateStats = (data: CourseData) => {
   const yearKeys = Object.keys(data)
