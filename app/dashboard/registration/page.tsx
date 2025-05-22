@@ -33,7 +33,13 @@ export default function CoursePage() {
 
   // State for registered courses - organized by year and semester
   const [registeredCourses, setRegisteredCourses] =
-    useState<Record<string, Record<string, any[]>>>(initialRegisteredCourses)
+    useState<Record<string, Record<string, any[]>>>({
+      "1": { First: [], Second: [] },
+      "2": { First: [], Second: [] },
+      "3": { First: [], Second: [] },
+      "4": { First: [], Second: [] },
+      "5": { First: [], Second: [] },
+    });
 
   // State variable for maximum units
   const maxUnits = 24 // Fixed credit unit limit
@@ -612,6 +618,12 @@ export default function CoursePage() {
   ]
 
   // Save registered courses to local storage whenever they change
+  useEffect(() => {
+    const savedCourses = localStorage.getItem("registeredCourses");
+    if (savedCourses) {
+      setRegisteredCourses(JSON.parse(savedCourses));
+    }
+  }, []);
   useEffect(() => {
     localStorage.setItem("registeredCourses", JSON.stringify(registeredCourses))
   }, [registeredCourses])
