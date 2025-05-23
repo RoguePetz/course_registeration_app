@@ -921,7 +921,9 @@ export default function CoursePage() {
             style={{
               border: "1px solid #E5E7EB",
               borderRadius: "6px",
-              overflow: "hidden",
+              overflowX: "auto",
+              overflowY: "auto",  // Enable vertical scrolling
+              maxHeight: "400px", // Set maximum height for scroll container
               marginBottom: "16px",
             }}
           >
@@ -1198,7 +1200,8 @@ export default function CoursePage() {
                 style={{
                   border: "1px solid #E5E7EB",
                   borderRadius: "6px",
-                  overflow: "hidden",
+                  overflowX: "auto",
+                  overflowY: "auto",  
                   marginBottom: "16px",
                   backgroundColor: "#FEFAFA",
                 }}
@@ -1580,6 +1583,8 @@ export default function CoursePage() {
             style={{
               border: "1px solid #E5E7EB",
               borderRadius: "6px",
+              overflowX: "auto",
+              overflowY: "auto",  
               overflow: "hidden",
             }}
           >
